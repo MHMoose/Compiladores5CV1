@@ -9,6 +9,7 @@ public class Scanner
 {
 
     private final String source;
+    private int Estado = 0;
 
     private final List<Token> tokens = new ArrayList<>();
 
@@ -63,13 +64,89 @@ public class Scanner
 
     List<Token> scanTokens(){
         //Aquí va el corazón del scanner.
+        while(source!=EOF)
+        {
+            switch(Estado)
+            {
+                case 0:
+                    if (source=="(")
+                    {
+                        estado = 1;
+                    }
+                    else if (source==")")
+                    {
 
+                    }
+                    else if (source=="{")
+                    {
+
+                    }
+                    else if (source=="}")
+                    {
+
+                    }
+                    else if (source==",")
+                    {
+
+                    }
+                    else if (source==".")
+                    {
+
+                    }
+                    else if (source==";")
+                    {
+
+                    }
+                    else if (source=="-")
+                    {
+
+                    }
+                    else if (source=="+")
+                    {
+
+                    }
+                    else if (source=="*")
+                    {
+
+                    }
+                    else if (source=="/")
+                    {
+
+                    }
+                    else if (source=="!")
+                    {
+
+                    }
+                    else if (source=="=")
+                    {
+                        
+                    }
+                    else if (source=="<")
+                    {
+                        
+                    }
+                    else if (source==">")
+                    {
+
+                    }
+
+                    break;
+                case 1:
+                    
+                    if (source=="=")
+                    {
+                        tokens.add(new Token(TipoToken.MENOR_IGUAL_QUE, lexema="<=", linea));
+                    }
+
+                    break;
+            }
+            
         /*
         Analizar el texto de entrada para extraer todos los tokens
         y al final agregar el token de fin de archivo
          */
         tokens.add(new Token(TipoToken.EOF, "", null, linea));
-
+        }
         return tokens;
     }
 }

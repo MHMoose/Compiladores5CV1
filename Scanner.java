@@ -64,14 +64,14 @@ public class Scanner
 
     List<Token> scanTokens(){
         //Aquí va el corazón del scanner.
-        while(source!=EOF)
+        while(source!="")
         {
             switch(Estado)
             {
                 case 0:
                     if (source=="(")
                     {
-                        estado = 1;
+
                     }
                     else if (source==")")
                     {
@@ -123,7 +123,8 @@ public class Scanner
                     }
                     else if (source=="<")
                     {
-                        
+                        Estado = 1;
+                        System.out.println("WARD");
                     }
                     else if (source==">")
                     {
@@ -135,7 +136,8 @@ public class Scanner
                     
                     if (source=="=")
                     {
-                        tokens.add(new Token(TipoToken.MENOR_IGUAL_QUE, lexema="<=", linea));
+                        //Sytem.out.println("WARD");
+                        tokens.add(new Token(TipoToken.MENOR_IGUAL_QUE, "<=" , null, linea));
                     }
 
                     break;
@@ -145,7 +147,7 @@ public class Scanner
         Analizar el texto de entrada para extraer todos los tokens
         y al final agregar el token de fin de archivo
          */
-        tokens.add(new Token(TipoToken.EOF, "", null, linea));
+        tokens.add(new Token(TipoToken.EOF,"", null, linea));
         }
         return tokens;
     }

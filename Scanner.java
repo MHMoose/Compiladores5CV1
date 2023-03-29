@@ -35,7 +35,6 @@ public class Scanner
         palabrasReservadas.put("verdadero", TipoToken.VERDADERO);
         palabrasReservadas.put("var", TipoToken.VAR); //definir variables
         palabrasReservadas.put("mientras", TipoToken.MIENTRAS);
-
         palabrasReservadas.put("(", TipoToken.ABRIR_PARENTESIS);
         palabrasReservadas.put(")", TipoToken.CERRAR_PARENTESIS);
         palabrasReservadas.put("{", TipoToken.ABRIR_LLAVE);
@@ -49,8 +48,8 @@ public class Scanner
         palabrasReservadas.put("/", TipoToken.DIAGONAL);
         palabrasReservadas.put("!", TipoToken.EXCLAMACION);
         palabrasReservadas.put("!=", TipoToken.DIFERENTE_DE);
-        palabrasReservadas.put("=", TipoToken.IGUAL);
-        palabrasReservadas.put("==", TipoToken.COMPARASION);
+        palabrasReservadas.put("=", TipoToken.ESIGUAL);
+        palabrasReservadas.put("==", TipoToken.MISMO);
         palabrasReservadas.put("<", TipoToken.MENOR_QUE);
         palabrasReservadas.put("<=", TipoToken.MENOR_IGUAL_QUE);
         palabrasReservadas.put(">", TipoToken.MAYOR_QUE);

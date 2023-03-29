@@ -5,16 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Scanner {
+public class Scanner 
+{
 
     private final String source;
+    private int Estado = 0;
 
     private final List<Token> tokens = new ArrayList<>();
 
     private int linea = 1;
 
     private static final Map<String, TipoToken> palabrasReservadas;
-    static {
+    static 
+    {
         palabrasReservadas = new HashMap<>();
         palabrasReservadas.put("y", TipoToken.Y);
         palabrasReservadas.put("clase", TipoToken.CLASE);
@@ -32,7 +35,28 @@ public class Scanner {
         palabrasReservadas.put("verdadero", TipoToken.VERDADERO);
         palabrasReservadas.put("var", TipoToken.VAR); //definir variables
         palabrasReservadas.put("mientras", TipoToken.MIENTRAS);
+
+        palabrasReservadas.put("(", TipoToken.ABRIR_PARENTESIS);
+        palabrasReservadas.put(")", TipoToken.CERRAR_PARENTESIS);
+        palabrasReservadas.put("{", TipoToken.ABRIR_LLAVE);
+        palabrasReservadas.put("}", TipoToken.CERRAR_LLAVE);
+        palabrasReservadas.put(",", TipoToken.COMA);
+        palabrasReservadas.put(".", TipoToken.PUNTO);
+        palabrasReservadas.put(";", TipoToken.PUNTO_Y_COMA);
+        palabrasReservadas.put("-", TipoToken.MENOS);
+        palabrasReservadas.put("+", TipoToken.MAS);
+        palabrasReservadas.put("*", TipoToken.ASTERISCO);
+        palabrasReservadas.put("/", TipoToken.DIAGONAL);
+        palabrasReservadas.put("!", TipoToken.EXCLAMACION);
+        palabrasReservadas.put("!=", TipoToken.DIFERENTE_DE);
+        palabrasReservadas.put("=", TipoToken.IGUAL);
+        palabrasReservadas.put("==", TipoToken.COMPARASION);
+        palabrasReservadas.put("<", TipoToken.MENOR_QUE);
+        palabrasReservadas.put("<=", TipoToken.MENOR_IGUAL_QUE);
+        palabrasReservadas.put(">", TipoToken.MAYOR_QUE);
+        palabrasReservadas.put(">=", TipoToken.MAYOR_IGUAL_QUE);
     }
+
 
     Scanner(String source){
         this.source = source;
@@ -40,13 +64,91 @@ public class Scanner {
 
     List<Token> scanTokens(){
         //Aquí va el corazón del scanner.
+        while(source!="")
+        {
+            switch(Estado)
+            {
+                case 0:
+                    if (source=="(")
+                    {
 
+                    }
+                    else if (source==")")
+                    {
+
+                    }
+                    else if (source=="{")
+                    {
+
+                    }
+                    else if (source=="}")
+                    {
+
+                    }
+                    else if (source==",")
+                    {
+
+                    }
+                    else if (source==".")
+                    {
+
+                    }
+                    else if (source==";")
+                    {
+
+                    }
+                    else if (source=="-")
+                    {
+
+                    }
+                    else if (source=="+")
+                    {
+
+                    }
+                    else if (source=="*")
+                    {
+
+                    }
+                    else if (source=="/")
+                    {
+
+                    }
+                    else if (source=="!")
+                    {
+
+                    }
+                    else if (source=="=")
+                    {
+                        
+                    }
+                    else if (source=="<")
+                    {
+                        Estado = 1;
+                        System.out.println("WARD");
+                    }
+                    else if (source==">")
+                    {
+
+                    }
+
+                    break;
+                case 1:
+                    
+                    if (source=="=")
+                    {
+                        //Sytem.out.println("WARD");
+                        tokens.add(new Token(TipoToken.MENOR_IGUAL_QUE, "<=" , null, linea));
+                    }
+
+                    break;
+            }
+            
         /*
         Analizar el texto de entrada para extraer todos los tokens
         y al final agregar el token de fin de archivo
          */
-        tokens.add(new Token(TipoToken.EOF, "", null, linea));
-
+        tokens.add(new Token(TipoToken.EOF,"", null, linea));
+        }
         return tokens;
     }
 }

@@ -1,14 +1,40 @@
 package mx.ipn.escom.compiladores;
 
 public enum TipoToken {
-    // Crear un tipoToken por palabra reservada
-    // Crear un tipoToken: identificador, una cadena y numero
-    // Crear un tipoToken por cada "Signo del lenguaje" (ver clase Scanner)
-
-
+    /*Se crea un tipoToken por cada palabra reservada, así como un 
+    identificador, para una cadena y numero, también se hace por cada
+    "Signo del lenguaje"*/
     // Palabras clave:
-    Y, CLASE, ADEMAS, FALSO, PARA, FUN, SI, NULO, O, IMPRIMIR,
-    RETORNAR, SUPER, ESTE, VERDADERO, VAR, MIENTRAS,
+    Y, 
+    CLASE, 
+    ADEMAS, 
+    FALSO, 
+    PARA, 
+    FUN, 
+    SI, 
+    NULO, 
+    O, 
+    IMPRIMIR,
+    RETORNAR, 
+    SUPER, 
+    ESTE, 
+    VERDADERO, 
+    VAR, 
+    MIENTRAS,
+    SUMA,
+    RESTA,
+    MULTIPLICACION,
+    DIVISION,
+    POTENCIA,
+    MODULO,
+    MENOR,
+    MENORIGUAL,
+    MAYOR,
+    MAYORIGUAL,
+    DISTINTO,
+    IGUAL,
+
+
 
     // Final de cadena
     EOF

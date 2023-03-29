@@ -2,8 +2,8 @@ package mx.ipn.escom.compiladores;
 
 public class Token {
 
-    final TipoToken tipo;
-    final String lexema;
+    final TipoToken tipo; //Identificador
+    final String lexema; //Valor
     final Object literal;
     final int linea;
 

@@ -36,7 +36,7 @@ public class Scanner
         palabrasReservadas.put("var", TipoToken.VAR); //definir variables
         palabrasReservadas.put("mientras", TipoToken.MIENTRAS);
 
-        palabrasReservadas.put("(", TipoToken.ABRIR_PARENTESIS);
+        palabrasReservadas.put("abrir_parentesis", TipoToken.ABRIR_PARENTESIS);
         palabrasReservadas.put(")", TipoToken.CERRAR_PARENTESIS);
         palabrasReservadas.put("{", TipoToken.ABRIR_LLAVE);
         palabrasReservadas.put("}", TipoToken.CERRAR_LLAVE);
@@ -69,9 +69,10 @@ public class Scanner
             switch(Estado)
             {
                 case 0:
+                    
                     if (source=="(")
                     {
-
+                        tokens.add(new Token(TipoToken.ABRIR_PARENTESIS, "(" ,null, linea));
                     }
                     else if (source==")")
                     {
@@ -131,16 +132,16 @@ public class Scanner
 
                     }
 
-                    break;
+                    //break;
                 case 1:
                     
                     if (source=="=")
                     {
                         //Sytem.out.println("WARD");
-                        tokens.add(new Token(TipoToken.MENOR_IGUAL_QUE, "<=" , null, linea));
+                        tokens.add(new Token(TipoToken.MENOR_IGUAL_QUE, "<=" , "<=" , linea));
                     }
 
-                    break;
+                    //break;
             }
             
         /*

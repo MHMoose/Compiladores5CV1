@@ -35,128 +35,89 @@ public class Scanner
         palabrasReservadas.put("verdadero", TipoToken.VERDADERO);
         palabrasReservadas.put("var", TipoToken.VAR); //definir variables
         palabrasReservadas.put("mientras", TipoToken.MIENTRAS);
-<<<<<<< HEAD
-
-        palabrasReservadas.put("abrir_parentesis", TipoToken.ABRIR_PARENTESIS);
-=======
-        palabrasReservadas.put("(", TipoToken.ABRIR_PARENTESIS);
->>>>>>> 4547c20b3b7e279fb9c7f81b5ff6a6e2ac787c14
-        palabrasReservadas.put(")", TipoToken.CERRAR_PARENTESIS);
-        palabrasReservadas.put("{", TipoToken.ABRIR_LLAVE);
-        palabrasReservadas.put("}", TipoToken.CERRAR_LLAVE);
-        palabrasReservadas.put(",", TipoToken.COMA);
-        palabrasReservadas.put(".", TipoToken.PUNTO);
-        palabrasReservadas.put(";", TipoToken.PUNTO_Y_COMA);
-        palabrasReservadas.put("-", TipoToken.MENOS);
-        palabrasReservadas.put("+", TipoToken.MAS);
-        palabrasReservadas.put("*", TipoToken.ASTERISCO);
-        palabrasReservadas.put("/", TipoToken.DIAGONAL);
-        palabrasReservadas.put("!", TipoToken.EXCLAMACION);
-        palabrasReservadas.put("!=", TipoToken.DIFERENTE_DE);
-        palabrasReservadas.put("=", TipoToken.ESIGUAL);
-        palabrasReservadas.put("==", TipoToken.MISMO);
-        palabrasReservadas.put("<", TipoToken.MENOR_QUE);
-        palabrasReservadas.put("<=", TipoToken.MENOR_IGUAL_QUE);
-        palabrasReservadas.put(">", TipoToken.MAYOR_QUE);
-        palabrasReservadas.put(">=", TipoToken.MAYOR_IGUAL_QUE);
     }
 
 
-    Scanner(String source){
+    Scanner(String source)
+    {
         this.source = source;
     }
 
-    List<Token> scanTokens(){
-        //Aquí va el corazón del scanner.
-        while(source!="")
+    List<Token> scanTokens()
+    {
+        int Estado, Posicion;
+        char Caracter;
+
+        for (Posicion=0; Posicion<source.length(); Posicion++)
         {
+            Caracter = source.charAt(Posicion);
+
             switch(Estado)
             {
                 case 0:
-                    
-                    if (source=="(")
-                    {
-                        tokens.add(new Token(TipoToken.ABRIR_PARENTESIS, "(" ,null, linea));
-                    }
-                    else if (source==")")
-                    {
 
-                    }
-                    else if (source=="{")
+                    if (Caracter=="(")
                     {
+                        tokens.add(new Token(TipoToken.ABRIR_PARENTESIS, "(", null, linea));
+                    }
+                    else if(Caracter==")")
+                    {
+                        tokens.add(new Token(TipoToken.CERRAR_PARENTESIS, ")", null, linea));
+                    }
+                    else if(Caracter=="{")
+                    {
+                        tokens.add(new Token(TipoToken.ABRIR_LLAVE, "{", null, linea));
+                    }
+                    else if(Caracter=="}")
+                    {
+                        tokens.add(new Token(TipoToken.CERRAR_LLAVE, "}", null, linea));
+                    }
+                    else if(Caracter==",")
+                    {
+                        tokens.add(new Token(TipoToken.COMA, ",", null, linea));
+                    }
+                    else if(Caracter==".")
+                    {
+                        tokens.add(new Token(TipoToken.PUNTO, ".", null, linea));
+                    }
+                    else if(Caracter==";")
+                    {
+                        tokens.add(new Token(TipoToken.PUNTO_Y_COMA, ";", null, linea));
+                    }
+                    else if(Caracter=="-")
+                    {
+                        tokens.add(new Token(TipoToken.RESTA, "-", null, linea));
+                    }
+                    else if(Caracter=="+")
+                    {
+                        tokens.add(new Token(TipoToken.SUMA, "+", null, linea));
+                    }
+                    else if(Caracter=="*")
+                    {
+                        tokens.add(new Token(TipoToken.ASTERISCOM, "*", null, linea));
+                    }
+                break;
 
-                    }
-                    else if (source=="}")
-                    {
-
-                    }
-                    else if (source==",")
-                    {
-
-                    }
-                    else if (source==".")
-                    {
-
-                    }
-                    else if (source==";")
-                    {
-
-                    }
-                    else if (source=="-")
-                    {
-
-                    }
-                    else if (source=="+")
-                    {
-
-                    }
-                    else if (source=="*")
-                    {
-
-                    }
-                    else if (source=="/")
-                    {
-
-                    }
-                    else if (source=="!")
-                    {
-
-                    }
-                    else if (source=="=")
-                    {
-                        
-                    }
-                    else if (source=="<")
-                    {
-                        Estado = 1;
-                        System.out.println("WARD");
-                    }
-                    else if (source==">")
-                    {
-
-                    }
-
-                    //break;
                 case 1:
-                    
-                    if (source=="=")
-                    {
-                        //Sytem.out.println("WARD");
-                        tokens.add(new Token(TipoToken.MENOR_IGUAL_QUE, "<=" , "<=" , linea));
-                    }
 
-                    //break;
+                    
+
+                break;
             }
+        }
+        //Aquí va el corazón del scanner.
+        
             
         /*
         Analizar el texto de entrada para extraer todos los tokens
         y al final agregar el token de fin de archivo
          */
         tokens.add(new Token(TipoToken.EOF,"", null, linea));
-        }
+    
         return tokens;
     }
 }
+
 
 /*
 Signos o símbolos del lenguaje:

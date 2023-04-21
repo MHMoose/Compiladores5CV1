@@ -45,62 +45,79 @@ public class Scanner
 
     List<Token> scanTokens()
     {
-        int Estado, Posicion;
+        int Estado, Posicion, Largo;
         char Caracter;
 
-        for (Posicion=0; Posicion<source.length(); Posicion++)
+        Estado = 0;
+
+        Largo = source.length();
+
+        for (Posicion=0; Posicion<Largo+1; Posicion++)
         {
             Caracter = source.charAt(Posicion);
-
+            
             switch(Estado)
             {
                 case 0:
 
-                    if (Caracter=="(")
+                    if (Caracter=='(')
                     {
                         tokens.add(new Token(TipoToken.ABRIR_PARENTESIS, "(", null, linea));
                     }
-                    else if(Caracter==")")
+                    else if(Caracter==')')
                     {
                         tokens.add(new Token(TipoToken.CERRAR_PARENTESIS, ")", null, linea));
                     }
-                    else if(Caracter=="{")
+                    else if(Caracter=='{')
                     {
                         tokens.add(new Token(TipoToken.ABRIR_LLAVE, "{", null, linea));
                     }
-                    else if(Caracter=="}")
+                    else if(Caracter=='}')
                     {
                         tokens.add(new Token(TipoToken.CERRAR_LLAVE, "}", null, linea));
                     }
-                    else if(Caracter==",")
+                    else if(Caracter==',')
                     {
                         tokens.add(new Token(TipoToken.COMA, ",", null, linea));
                     }
-                    else if(Caracter==".")
+                    else if(Caracter=='.')
                     {
                         tokens.add(new Token(TipoToken.PUNTO, ".", null, linea));
                     }
-                    else if(Caracter==";")
+                    else if(Caracter==';')
                     {
                         tokens.add(new Token(TipoToken.PUNTO_Y_COMA, ";", null, linea));
                     }
-                    else if(Caracter=="-")
+                    else if(Caracter=='-')
                     {
                         tokens.add(new Token(TipoToken.RESTA, "-", null, linea));
                     }
-                    else if(Caracter=="+")
+                    else if(Caracter=='+')
                     {
                         tokens.add(new Token(TipoToken.SUMA, "+", null, linea));
                     }
-                    else if(Caracter=="*")
+                    else if(Caracter=='*')
                     {
-                        tokens.add(new Token(TipoToken.ASTERISCOM, "*", null, linea));
+                        tokens.add(new Token(TipoToken.ASTERISCO, "*", null, linea));
+                    }
+                    else if(Caracter=='<')
+                    {
+                        Estado = 1;
                     }
                 break;
 
                 case 1:
 
-                    
+                    if (Caracter=='=')
+                    {
+                        tokens.add(new Token(TipoToken.MENOR_IGUAL_QUE, "<=", null, linea));
+                    }
+                    else
+                    {
+                        tokens.add(new Token(TipoToken.MENOR_QUE, "<", null, linea));
+                    }
+
+                    Estado = 0;
 
                 break;
             }

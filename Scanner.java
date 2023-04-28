@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.lang.model.util.ElementScanner6;
+import javax.xml.transform.Source;
+
 public class Scanner 
 {
 
@@ -45,14 +48,13 @@ public class Scanner
 
     List<Token> scanTokens()
     {
-        int Estado, Posicion, Largo;
+        int Estado, Posicion;
         char Caracter;
 
         Estado = 0;
+        
 
-        Largo = source.length();
-
-        for (Posicion=0; Posicion<Largo+1; Posicion++)
+        for (Posicion=0; Posicion<source.length(); Posicion++)
         {
             Caracter = source.charAt(Posicion);
             
@@ -100,13 +102,84 @@ public class Scanner
                     {
                         tokens.add(new Token(TipoToken.ASTERISCO, "*", null, linea));
                     }
-                    else if(Caracter=='<')
+                    else if(Caracter=='/')
                     {
                         Estado = 1;
                     }
+                    else if(Caracter=='!')
+                    {
+                        Estado = 2;
+                    }
+                    else if(Caracter=='=')
+                    {
+                        Estado = 3;
+                    }
+                    else if(Caracter=='<')
+                    {
+                        Estado = 4;
+                        //Posicion = Posicion - 1;
+                    }
+                    else if(Caracter=='>')
+                    {
+                        Estado = 5;
+                    }
+                    /*else if(Character.isLetterOrDigit(Caracter))
+                    {
+
+                    }*/
+               break;
+                
+               case 1:
+
+                    if(Caracter=='/')
+                    {
+                        Estado = 6;
+                    }
+                    else if(Caracter=='*')
+                    {
+                        Estado = 7;
+                    }
+                    else
+                    {
+                        Posicion--;
+                        tokens.add(new Token(TipoToken.ENTRE, "//", null, linea));
+                        Estado = 0;
+                    }
+                    
+               break;
+                case 2:
+
+                    if (Caracter=='=')
+                    {
+                        tokens.add(new Token(TipoToken.DIFERENTE_DE, "!=", null, linea));
+                    }
+                    else
+                    {
+                        Posicion--;
+                        tokens.add(new Token(TipoToken.DIFERENTE, "!", null, linea));
+                    }
+
+                    Estado = 0;
+
                 break;
 
-                case 1:
+                case 3:
+
+                    if(Caracter=='=')
+                    {
+                        tokens.add(new Token(TipoToken.IGUAL, "==", null, linea));
+                    }   
+                    else
+                    {
+                        Posicion--;
+                        tokens.add(new Token(TipoToken.ASIGNACION, "=", null, linea));
+                    } 
+
+                    Estado = 0;
+
+                break;
+
+                case 4:
 
                     if (Caracter=='=')
                     {
@@ -114,10 +187,62 @@ public class Scanner
                     }
                     else
                     {
+                        Posicion--;
                         tokens.add(new Token(TipoToken.MENOR_QUE, "<", null, linea));
                     }
 
                     Estado = 0;
+
+                break;
+
+                case 5:
+
+                    if (Caracter=='=')
+                    {
+                        tokens.add(new Token(TipoToken.MAYOR_IGUAL_QUE,">=", null, linea));
+                    }
+                    else
+                    {
+                        Posicion--;
+                        tokens.add(new Token(TipoToken.MAYOR_QUE, ">", null, linea));
+                    }
+
+                    Estado = 0;
+
+                break;
+
+                case 6:
+
+                    if(Character.isLetterOrDigit(Caracter))
+                    {
+                        Estado = 6;
+                    }
+                    else if(Caracter == '\n'|| Caracter == '\0')
+                    {
+                        Estado = 0;
+                        System.out.println("Comentario");
+                    }
+
+                break;
+
+                case 7:
+
+                    if(Character.isLetterOrDigit(Caracter))
+                    {
+                        Estado = 7;
+                    }
+                    else if(Caracter=='*')
+                    {
+                        if(Caracter=='/')
+                        {
+                            System.out.println("Comentario");
+                            Estado = 0;
+                        }
+                        else
+                        {
+                            Estado = 7;
+                        }
+                    }
 
                 break;
             }

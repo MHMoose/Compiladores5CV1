@@ -123,10 +123,10 @@ public class Scanner
                     {
                         Estado = 5;
                     }
-                    /*else if(Character.isLetterOrDigit(Caracter))
+                    else if(Caracter=='"')
                     {
-
-                    }*/
+                       Estado = 9;
+                    }
                break;
                 
                case 1:
@@ -134,15 +134,17 @@ public class Scanner
                     if(Caracter=='/')
                     {
                         Estado = 6;
+                        System.out.println("PRUEBA 1");
                     }
                     else if(Caracter=='*')
                     {
                         Estado = 7;
+                        System.out.println("PRUEBA 2");
                     }
                     else
                     {
                         Posicion--;
-                        tokens.add(new Token(TipoToken.ENTRE, "//", null, linea));
+                        tokens.add(new Token(TipoToken.ENTRE, "/", null, linea));
                         Estado = 0;
                     }
                     
@@ -168,6 +170,7 @@ public class Scanner
                     if(Caracter=='=')
                     {
                         tokens.add(new Token(TipoToken.IGUAL, "==", null, linea));
+                        System.out.println("PRUEBA");
                     }   
                     else
                     {
@@ -213,36 +216,59 @@ public class Scanner
 
                 case 6:
 
-                    if(Character.isLetterOrDigit(Caracter))
-                    {
-                        Estado = 6;
-                    }
-                    else if(Caracter == '\n'|| Caracter == '\0')
+                    if(Caracter=='\n')
                     {
                         Estado = 0;
-                        System.out.println("Comentario");
+                    }
+                    else
+                    {
+                        Estado = 6;
                     }
 
                 break;
 
                 case 7:
 
-                    if(Character.isLetterOrDigit(Caracter))
+                    if(Caracter=='*')
+                    {
+                        Estado = 8;
+                    }
+                    else
                     {
                         Estado = 7;
                     }
-                    else if(Caracter=='*')
+
+                break;
+
+                case 8:
+
+                    if(Caracter=='/')
                     {
-                        if(Caracter=='/')
-                        {
-                            System.out.println("Comentario");
-                            Estado = 0;
-                        }
-                        else
-                        {
-                            Estado = 7;
-                        }
+                        Estado = 0;
                     }
+                    else
+                    {
+                        Estado = 8;
+                    }
+
+                break;
+
+                case 9:
+
+                    if(Character.isLetterOrDigit(Caracter))
+                    {
+                        Estado = 9;
+                    }
+                    else if(Caracter=='"')
+                    {
+                        Estado = 0;
+                    }
+
+                break;
+
+                case 10:
+
+                    
 
                 break;
             }

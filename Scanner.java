@@ -117,7 +117,6 @@ public class Scanner
                     else if(Caracter=='<')
                     {
                         Estado = 4;
-                        //Posicion = Posicion - 1;
                     }
                     else if(Caracter=='>')
                     {
@@ -127,6 +126,14 @@ public class Scanner
                     {
                        Estado = 9;
                     }
+                    else if(Character.isDigit(Caracter))
+                    {
+                        Estado = 10;
+                    }
+                    else if(Character.isLetter(Caracter))
+                    {
+                        Estado = 16;
+                    }
                break;
                 
                case 1:
@@ -134,12 +141,10 @@ public class Scanner
                     if(Caracter=='/')
                     {
                         Estado = 6;
-                        System.out.println("PRUEBA 1");
                     }
                     else if(Caracter=='*')
                     {
                         Estado = 7;
-                        System.out.println("PRUEBA 2");
                     }
                     else
                     {
@@ -170,7 +175,6 @@ public class Scanner
                     if(Caracter=='=')
                     {
                         tokens.add(new Token(TipoToken.IGUAL, "==", null, linea));
-                        System.out.println("PRUEBA");
                     }   
                     else
                     {
@@ -255,22 +259,107 @@ public class Scanner
 
                 case 9:
 
-                    if(Character.isLetterOrDigit(Caracter))
-                    {
-                        Estado = 9;
-                    }
-                    else if(Caracter=='"')
-                    {
-                        Estado = 0;
-                    }
+                if(Caracter == '"')
+                {
+                    tokens.add(new Token(TipoToken.CADENA,"CADENA", null, linea));
 
-                break;
+                    Estado = 0;
+                }
+                else
+                {
+                    Estado = 9;
+                }
 
-                case 10:
 
-                    
+            break;
 
-                break;
+            case 10:
+
+                if(Character.isDigit(Caracter))
+                {
+                    Estado = 10;
+                }                
+                else if(Caracter == '.')
+                {
+                    Estado = 11;
+                }
+                else if(Caracter == 'E')
+                {
+                    Estado = 13;
+                }
+                else
+                {
+                    Posicion--;
+                    tokens.add(new Token(TipoToken.NUMERO,"NUMERO", null, linea));
+
+                    Estado = 0;
+                }
+
+            break;
+            
+            case 11:
+                if(Character.isDigit(Caracter))
+                {
+                    Estado = 12;
+                }
+            break;
+
+            case 12:
+                if(Character.isDigit(Caracter))
+                {
+                    Estado = 12;
+                }
+                else if(Caracter == 'E')
+                {
+                    Estado = 13;
+                }
+                else
+                {
+                    Posicion--;
+                    tokens.add(new Token(TipoToken.NUMERO,"NUMERO", null, linea));
+
+                    Estado = 0;
+                }
+            break;
+
+            case 13:
+                if(Caracter == '+' || Caracter == '-')
+                {
+                    Estado = 14;
+                }
+                else if(Character.isDigit(Caracter))
+                {
+                    Estado = 15;
+                }
+            break;
+
+            case 14:
+                if(Character.isDigit(Caracter))
+                {
+                    Estado = 15;
+                }
+            break;
+
+            case 15:
+                if(Character.isDigit(Caracter))
+                {
+                    Estado = 15;
+                }
+                else
+                {
+                    Posicion--;
+                    tokens.add(new Token(TipoToken.NUMERO,"NUMERO", null, linea));
+
+                    Estado = 0;
+                }
+            break;
+
+            case 16:
+
+            tokens.add(new Token(palabrasReservadas.getOrDefault(String, TipoToken.IDENTIFICADOR),palabrasReservadas.get(String),literal,linea));
+
+            break;
+
             }
         }
         //Aquí va el corazón del scanner.

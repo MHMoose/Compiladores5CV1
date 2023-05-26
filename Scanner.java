@@ -50,6 +50,8 @@ public class Scanner
     {
         int Estado, Posicion;
         char Caracter;
+        String lexema = "";
+        int inicioLexema = 0;
 
         Estado = 0;
         
@@ -133,6 +135,8 @@ public class Scanner
                     else if(Character.isLetter(Caracter))
                     {
                         Estado = 16;
+                        lexema = lexema + Caracter;
+                        inicioLexema = Posicion;
                     }
                break;
                 
@@ -356,8 +360,27 @@ public class Scanner
 
             case 16:
 
-            tokens.add(new Token(palabrasReservadas.getOrDefault(String, TipoToken.IDENTIFICADOR),palabrasReservadas.get(String),literal,linea));
+                if(Character.isAlphabetic(Caracter) || Character.isDigit(Caracter) )
+                {
+                    lexema = lexema + Caracter;
+                }
+                else
+                {
+                    TipoToken tt = palabrasReservadas.get(lexema);
+                    if(tt == null)
+                    {
+                        tokens.add(new Token(TipoToken.IDENTIFICADOR, lexema, null, inicioLexema + 1));
+                    }
+                    else
+                    {
+                        tokens.add(new Token(tt, lexema,null ,inicioLexema + 1));
+                    }
 
+                    Estado = 0;
+                    Posicion--;
+                    lexema = "";
+                    inicioLexema = 0;
+                }
             break;
 
             }
